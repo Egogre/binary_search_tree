@@ -43,10 +43,27 @@ class NodeTest < Minitest::Test
     assert_equal expected_right, actual_right
   end
   
-  def test_it_gets_left_childs_children
+  def test_it_gets_min
+    node.set_new_node(1)
+    node.set_new_node(2)
+    node.set_new_node(7)
     
+    expected = 1
+    actual = node.find_min
+    
+    assert_equal expected, actual
   end
   
+  def test_it_gets_max
+    node.set_new_node(17)
+    node.set_new_node(22)
+    node.set_new_node(7)
+    
+    expected = 22
+    actual = node.find_max
+    
+    assert_equal expected, actual
+  end
 
   
 end

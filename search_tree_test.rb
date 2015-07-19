@@ -40,7 +40,7 @@ class SearchTreeTest < Minitest::Test
   end
   
   def test_it_knows_min_value
-    skip
+    # skip
     tree.set_node(6)
     tree.set_node(3)
     tree.set_node(2)

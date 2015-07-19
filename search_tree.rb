@@ -18,6 +18,10 @@ class SearchTree
     tree_HEAD.count_nodes
   end
   
+  def minimum_value
+    tree_HEAD.find_min
+  end
+  
   
   
   

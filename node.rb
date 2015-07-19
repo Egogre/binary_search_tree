@@ -22,6 +22,22 @@ class Node
     node_self + left_count + right_count
   end
   
+  def find_min
+    min_value = value
+    if left_child
+      min_value = left_child.find_min
+    end
+    min_value
+  end
+  
+  def find_max
+    max_value = value
+    if right_child
+      max_value = right_child.find_max
+    end
+    max_value
+  end
+  
   private
   
   def set_left_child(left_child_value)
