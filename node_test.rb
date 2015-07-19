@@ -64,6 +64,17 @@ class NodeTest < Minitest::Test
     
     assert_equal expected, actual
   end
+  
+  def test_it_searches_for_value
+    # skip
+    refute node.can_find?(17)
+    node.set_new_node(17)
+    
+    expected = true
+    actual = node.can_find?(17)
+    
+    assert_equal expected, actual
+  end
 
   
 end

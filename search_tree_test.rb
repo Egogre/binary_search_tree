@@ -53,4 +53,63 @@ class SearchTreeTest < Minitest::Test
     assert_equal expected, actual
   end
   
+  def test_it_knows_max_value
+    # skip
+    tree.set_node(16)
+    tree.set_node(13)
+    tree.set_node(22)
+    tree.set_node(15)
+    tree.set_node(14)
+    
+    expected = 22
+    actual = tree.maximum_value
+    
+    assert_equal expected, actual
+  end
+  
+  def test_it_finds_value_in_tree
+    # skip
+    tree.set_node(6)
+    tree.set_node(3)
+    tree.set_node(2)
+    tree.set_node(5)
+    tree.set_node(4)
+    
+    expected = true
+    actual = tree.find_value(1)
+    
+    refute expected == actual 
+    
+    tree.set_node(1)
+    actual = tree.find_value(1)
+    
+    assert_equal expected, actual
+  end
+  
+  def test_it_prints_small_tree_representation
+    skip
+    tree.set_node(6)
+    tree.set_node(11)
+    tree.set_node(2)
+    
+    expected = 8
+    actual = tree.show_nodes
+    
+    assert_equal expected, actual
+  end
+  
+  def test_it_prints_larger_tree_representation
+    skip
+    tree.set_node(12)
+    tree.set_node(11)
+    tree.set_node(2)
+    tree.set_node(5)
+    tree.set_node(4)
+    tree.set_node(16)
+    tree.set_node(13)
+    tree.set_node(22)
+    tree.set_node(15)
+    tree.set_node(14)
+  end
+  
 end

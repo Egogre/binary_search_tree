@@ -14,6 +14,10 @@ class SearchTree
     #otherwise tree_HEAD = Node.new (value)
   end
   
+  def show_nodes
+    
+  end
+  
   def node_count
     tree_HEAD.count_nodes
   end
@@ -22,7 +26,13 @@ class SearchTree
     tree_HEAD.find_min
   end
   
+  def maximum_value
+    tree_HEAD.find_max
+  end
   
+  def find_value(search_value)
+    tree_HEAD.can_find?(search_value)
+  end
   
   
 end

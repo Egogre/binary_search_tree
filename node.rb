@@ -38,6 +38,26 @@ class Node
     max_value
   end
   
+  def can_find?(search_value)
+    @@value_found = false
+    if value == search_value
+      @@value_found = true
+    elsif right_child && search_value > value
+      right_child.can_find?(search_value)
+    elsif left_child && search_value < value
+      left_child.can_find?(search_value)
+    end
+    @@value_found
+  end
+  
+  # def search_next(search_value)
+  #   if right_child && search_value > value
+  #     right_child.can_find?(search_value)
+  #   elsif left_child && search_value < value
+  #     left_child.can_find?(search_value)
+  #   end  
+  # end
+  
   private
   
   def set_left_child(left_child_value)
@@ -73,5 +93,7 @@ class Node
       0
     end
   end
+  
+  
   
 end
