@@ -27,12 +27,6 @@ class NodeTest < Minitest::Test
     assert_equal expected, actual
   end
   
-  def test_you_cant_change_node_value
-    skip
-    node.value = 14
-    refute node.value == 14
-  end
-  
   def test_node_knows_child_nodes        
     expected_left = 3
     expected_right = 12
@@ -68,10 +62,15 @@ class NodeTest < Minitest::Test
   def test_it_searches_for_value
     # skip
     refute node.can_find?(17)
-    node.set_new_node(17)
     
-    expected = true
-    actual = node.can_find?(17)
+    node.set_new_node(17)
+  
+    assert node.can_find?(17)
+  end
+  
+  def test_node_passes_height
+    expected = 2
+    actual = node.total_height
     
     assert_equal expected, actual
   end

@@ -74,16 +74,12 @@ class SearchTreeTest < Minitest::Test
     tree.set_node(2)
     tree.set_node(5)
     tree.set_node(4)
-    
-    expected = true
-    actual = tree.find_value(1)
-    
-    refute expected == actual 
+
+    refute tree.find_value(1)
     
     tree.set_node(1)
-    actual = tree.find_value(1)
     
-    assert_equal expected, actual
+    assert tree.find_value(1)
   end
   
   def test_it_prints_small_tree_representation

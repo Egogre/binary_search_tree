@@ -58,6 +58,27 @@ class Node
   #   end  
   # end
   
+  def total_height
+    node_self = 1
+    if right_child && left_child
+      greater_height + node_self
+    elsif right_child
+      node_self + right_child.total_height
+    elsif left_child
+      node_self + left_child.total_height
+    else
+      node_self
+    end
+  end
+  
+  def greater_height
+    if right_child.total_height >= left_child.total_height
+      right_child.total_height
+    else
+      left_child.total_height
+    end
+  end
+  
   private
   
   def set_left_child(left_child_value)
