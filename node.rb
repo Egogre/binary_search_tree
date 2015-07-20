@@ -145,13 +145,9 @@ class Node
   
   def find_ascending_order
     ascending_return ||= ""
-    if left_child
-      ascending_return += left_child.find_ascending_order
-    end
+    ascending_return += left_child.find_ascending_order if left_child
     ascending_return += "#{value}\n"
-    if right_child
-      ascending_return += right_child.find_ascending_order
-    end
+    ascending_return += right_child.find_ascending_order if right_child
     ascending_return
   end
   

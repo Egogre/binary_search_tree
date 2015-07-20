@@ -46,7 +46,8 @@ class SearchTree
   
   def print_ascending
     text = tree_HEAD.find_ascending_order
-    file = File.new('./test#{rand(1000)}', 'w')
+    random_number = rand(1000).to_s
+    file = File.new('./test' + random_number, 'w')
     file.write(text)
     file.flush
     file
