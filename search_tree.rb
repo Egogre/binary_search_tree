@@ -44,5 +44,13 @@ class SearchTree
     tree_HEAD.find_leaves
   end
   
+  def print_ascending
+    text = tree_HEAD.find_ascending_order
+    file = File.new('./test#{rand(1000)}', 'w')
+    file.write(text)
+    file.flush
+    file
+  end
+  
   
 end

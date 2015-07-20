@@ -13,10 +13,6 @@ class NodeTest < Minitest::Test
     node.set_new_node(3)
   end
   
-  def teardown
-    @node = nil
-  end
-  
   def test_it_creates_node_with_value    
     expected = 6
     actual = node.value

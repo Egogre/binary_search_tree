@@ -169,4 +169,23 @@ class SearchTreeTest < Minitest::Test
     assert_equal expected, actual
   end
   
+  def test_it_writes_to_file
+    tree.set_node(16)
+    tree.set_node(13)
+    tree.set_node(22)
+    tree.set_node(15)
+    tree.set_node(14)
+    
+    expected = 
+"13
+14
+15
+16
+22
+"
+    actual = File.read(tree.print_ascending)
+    
+    assert_equal expected, actual
+  end
+  
 end

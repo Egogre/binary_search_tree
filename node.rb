@@ -20,40 +20,36 @@ class Node
   
   def find_min
     min_value = value
-    if left_child
-      min_value = left_child.find_min
-    end
+    min_value = left_child.find_min if left_child
     min_value
   end
   
   def find_max
     max_value = value
-    if right_child
-      max_value = right_child.find_max
-    end
+    max_value = right_child.find_max if right_child
     max_value
   end
   
   def can_find?(search_value)
-    @@value_found = false
+    value_found ||= false
     if value == search_value
-      @@value_found = true
-    elsif right_child && search_value > value
-      right_child.can_find?(search_value)
-    elsif left_child && search_value < value
-      left_child.can_find?(search_value)
+      value_found = true
+    elsif right_child && (search_value > value)
+      value_found = true if right_child.can_find?(search_value)
+    elsif left_child && (search_value < value)
+      value_found = true if left_child.can_find?(search_value)
     end
-    @@value_found
+    value_found
   end
   
   def find_leaves
-    @@leaves ||= ""
+    leaves ||= ""
     if left_child.nil? && right_child.nil?
-      @@leaves += "#{value}\n"
+      leaves += "#{value}\n"
     end
-    left_child.find_leaves if left_child
-    right_child.find_leaves if right_child
-    @@leaves
+    leaves += "#{left_child.find_leaves}" if left_child
+    leaves += "#{right_child.find_leaves}" if right_child
+    leaves
   end
   
   def find_and_remove_node(node_value_to_remove)
