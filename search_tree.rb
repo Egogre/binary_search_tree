@@ -40,5 +40,9 @@ class SearchTree
     tree_HEAD.total_height
   end
   
+  def get_leaves
+    tree_HEAD.find_leaves
+  end
+  
   
 end

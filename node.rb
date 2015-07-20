@@ -7,14 +7,10 @@ class Node
     @times_used = 1
   end
   
-  def set_new_node(node_value)
-    if node_value == value
-      @times_used += 1
-    elsif node_value < value
-      set_left_child(node_value)
-    else
-      set_right_child(node_value)
-    end
+  def set_new_node(set_value)
+    @times_used += 1 if set_value == value
+    set_left_child(set_value) if set_value < value  
+    set_right_child(set_value) if set_value > value
   end
   
   def count_nodes
@@ -48,6 +44,16 @@ class Node
       left_child.can_find?(search_value)
     end
     @@value_found
+  end
+  
+  def find_leaves
+    @@leaves ||= ""
+    if left_child.nil? && right_child.nil?
+      @@leaves += "#{value}\n"
+    end
+    left_child.find_leaves if left_child
+    right_child.find_leaves if right_child
+    @@leaves
   end
   
   def find_and_remove_node(node_value_to_remove)
@@ -159,8 +165,7 @@ class Node
     if left_child
       left_child.set_new_node(left_child_value)
     else
-      args = {:node_value => left_child_value}
-      @left_child = Node.new(args)
+      @left_child = Node.new({:node_value => left_child_value})
     end
   end
   
@@ -168,8 +173,7 @@ class Node
     if right_child
       right_child.set_new_node(right_child_value)
     else
-      args = {:node_value => right_child_value}
-      @right_child = Node.new(args)
+      @right_child = Node.new({:node_value => right_child_value})
     end
   end
   

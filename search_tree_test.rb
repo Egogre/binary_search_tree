@@ -82,6 +82,22 @@ class SearchTreeTest < Minitest::Test
     assert tree.find_value(1)
   end
   
+  def test_it_gets_all_leaves
+    tree.set_node(6)
+    tree.set_node(3)
+    tree.set_node(2)
+    tree.set_node(5)
+    tree.set_node(4)
+    
+    expected =
+"2
+4
+"
+    actual = tree.get_leaves
+    
+    assert_equal expected, actual
+  end
+  
   def test_it_removes_value_from_tree
     tree.set_node(6)
     tree.set_node(3)

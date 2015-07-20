@@ -90,9 +90,21 @@ class NodeTest < Minitest::Test
 "3
 12
 "
+
     actual = node.find_by_height(2)
     
     assert_equal expected, actual
+  end
+  
+  def test_find_all_leaves
+    expected =
+"3
+12
+"
+    
+    actual = node.find_leaves
+    
+    assert_equal expected, actual 
   end
   
   def test_node_displays_self_and_below
