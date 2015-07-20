@@ -72,7 +72,13 @@ class NodeTest < Minitest::Test
     assert node.can_find?(17)
   end
   
-  def test_node_passes_height
+  def test_it_finds_and_removes_node_by_value
+    node.find_and_remove_node(12)
+    
+    refute node.can_find?(12)
+  end
+  
+  def test_node_finds_height
     expected = 2
     actual = node.total_height
     
@@ -121,7 +127,7 @@ class NodeTest < Minitest::Test
     word_node.set_new_node("running")
     
     expected =
-    "                middle                
+      "                middle                
               earlier        silly        
           before         running         
       "

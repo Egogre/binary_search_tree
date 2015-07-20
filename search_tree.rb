@@ -32,6 +32,10 @@ class SearchTree
     tree_HEAD.can_find?(search_value)
   end
   
+  def delete_node(node_value)
+    tree_HEAD.find_and_remove_node(node_value)
+  end
+  
   def tree_height
     tree_HEAD.total_height
   end

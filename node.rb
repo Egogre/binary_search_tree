@@ -1,6 +1,6 @@
 class Node
-  attr_reader :value, :left_child, :right_child
-  attr_accessor :times_used
+  attr_reader :left_child, :right_child
+  attr_accessor :value, :times_used
   
   def initialize(node_parameters)
     @value = node_parameters[:node_value] 
@@ -50,13 +50,49 @@ class Node
     @@value_found
   end
   
-  # def search_next(search_value)
-  #   if right_child && search_value > value
-  #     right_child.can_find?(search_value)
-  #   elsif left_child && search_value < value
-  #     left_child.can_find?(search_value)
-  #   end  
-  # end
+  def find_and_remove_node(node_value_to_remove)
+    if value == node_value_to_remove
+      @times_used -= 1
+    elsif right_child && (node_value_to_remove > value)
+      right_child.find_and_remove_node(node_value_to_remove)
+      if right_child.value == node_value_to_remove
+        right_child.value = nil
+      end
+    elsif left_child && (node_value_to_remove < value)
+      left_child.find_and_remove_node(node_value_to_remove)
+      if left_child.value == node_value_to_remove
+        left_child.value = nil
+      end
+    else
+      "Node already doesn't exist!"
+    end
+    if times_used == 0
+      delete_node
+    end
+  end
+  
+  def delete_node
+    if right_child
+      right_children = right_child.find_ascending_order.split("\n")
+      left_children = left_child.find_ascending_order.split("\n") if left_child
+      @value = right_child.value
+      @left_child = nil
+      @right_child = nil
+      right_children.each {|child| set_new_node(child.to_i)}
+      left_children.each {|child| set_new_node(child.to_i)} if left_child
+      @times_used -= 1
+      "Node deleted, children reassigned"
+    elsif left_child
+      left_children = left_child.find_ascending_order.split("\n") 
+      @value = left_child.value
+      @left_child = nil
+      left_children.each {|child| set_new_node(child.to_i)}
+      @times_used -= 1
+      "Node deleted, children reassigned"
+    else
+      "Node deleted"
+    end  
+  end
   
   def total_height
     node_self = 1
@@ -96,7 +132,6 @@ class Node
     display_output = ""
     nodes_possible = 2**total_height
     buffer = ("    " * (nodes_possible))
-    # require "pry"; binding.pry
     total_height.times do
       buffer = buffer[0..-((buffer.length / 2)+1)]
       height_count += 1
@@ -160,15 +195,6 @@ class Node
     else
       left_child.total_height
     end
-  end
-  
-  def display_children
-    buffer = "        " * total_height
-    half_buff = "    " * (total_height)
-    quarter_buff = "  " * (total_height)
-    eighth_buff = " " * (total_height)
-    "#{half_buff}#{left_child.value if left_child}#{buffer}#{right_child.value if right_child}#{half_buff}\n"
-    "#{quarter_buff}#{left_child.left_child.value if left_child.left_child}#{half_buff}#{left_child.right_child.value if left_child.right_child}#{half_buff}#{right_child.left_child.value if right_child.left_child}#{half_buff}#{right_child.right_child.value if right_child.right_child}\n#{eighth_buff}#{left_child.left_child.left_child.value if left_child.left_child.left_child}#{quarter_buff}#{left_child.left_child.right_child.value if left_child.left_child.right_child}#{quarter_buff}#{left_child.right_child.left_child.value if left_child.right_child.left_child}#{quarter_buff}#{left_child.right_child.right_child.value if left_child.right_child.right_child}#{quarter_buff}#{right_child.left_child.left_child.value if right_child.left_child.left_child}#{quarter_buff}#{right_child.left_child.right_child.value if right_child.left_child.right_child}#{quarter_buff}#{right_child.right_child.left_child.value if right_child.right_child.left_child}#{quarter_buff} #{right_child.right_child.right_child.value if right_child.right_child.right_child}"
   end
   
 end
