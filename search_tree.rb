@@ -10,12 +10,10 @@ class SearchTree
       args = {:node_value => value}
       @tree_HEAD = Node.new(args)
     end
-    #if tree_HEAD hand new node to HEAD
-    #otherwise tree_HEAD = Node.new (value)
   end
   
-  def show_nodes
-    
+  def show_nodes 
+     tree_HEAD.display_all
   end
   
   def node_count
@@ -32,6 +30,10 @@ class SearchTree
   
   def find_value(search_value)
     tree_HEAD.can_find?(search_value)
+  end
+  
+  def tree_height
+    tree_HEAD.total_height
   end
   
   

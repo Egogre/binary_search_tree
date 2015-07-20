@@ -82,20 +82,36 @@ class SearchTreeTest < Minitest::Test
     assert tree.find_value(1)
   end
   
+  def test_it_find_tree_height
+    tree.set_node(6)
+    tree.set_node(3)
+    tree.set_node(2)
+    tree.set_node(5)
+    tree.set_node(4)
+    
+    expected = 4
+    actual = tree.tree_height
+    
+    assert_equal expected, actual
+  end
+  
   def test_it_prints_small_tree_representation
-    skip
+    # skip
     tree.set_node(6)
     tree.set_node(11)
     tree.set_node(2)
     
-    expected = 8
+    expected =
+    "        6        
+          2    11    
+      "
     actual = tree.show_nodes
     
     assert_equal expected, actual
   end
   
   def test_it_prints_larger_tree_representation
-    skip
+    # skip
     tree.set_node(12)
     tree.set_node(11)
     tree.set_node(2)
@@ -106,6 +122,17 @@ class SearchTreeTest < Minitest::Test
     tree.set_node(22)
     tree.set_node(15)
     tree.set_node(14)
+    
+    expected =
+    "                                                                12                                                                
+                                      11                                16                                
+                      2                                 13                22                
+                       5                          15        
+               4                   14         
+      "
+    actual = tree.show_nodes
+    
+    assert_equal expected, actual
   end
   
 end

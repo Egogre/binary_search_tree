@@ -71,12 +71,51 @@ class Node
     end
   end
   
-  def greater_height
-    if right_child.total_height >= left_child.total_height
-      right_child.total_height
-    else
-      left_child.total_height
+  def find_by_height(level)
+    all_at_level ||= ""
+    if level == 1
+      all_at_level += "#{value}\n"
+    elsif left_child && right_child
+      level -= 1
+      all_at_level += "#{left_child.find_by_height(level)}"
+      all_at_level += "#{right_child.find_by_height(level)}"
+    elsif left_child
+      level -= 1
+      all_at_level += "#{left_child.find_by_height(level)}"
+      all_at_level += " \n"
+    elsif right_child
+      level -= 1
+      all_at_level += " \n"
+      all_at_level += "#{right_child.find_by_height(level)}"
     end
+      
+  end
+  
+  def display_all
+    height_count = 0
+    display_output = ""
+    nodes_possible = 2**total_height
+    buffer = ("    " * (nodes_possible))
+    # require "pry"; binding.pry
+    total_height.times do
+      buffer = buffer[0..-((buffer.length / 2)+1)]
+      height_count += 1
+      values_for_line = find_by_height(height_count).gsub("\n", buffer)
+      display_output += "#{buffer}#{values_for_line}\n      "  
+    end
+    display_output
+  end 
+  
+  def find_ascending_order
+    ascending_return ||= ""
+    if left_child
+      ascending_return += left_child.find_ascending_order
+    end
+    ascending_return += "#{value}\n"
+    if right_child
+      ascending_return += right_child.find_ascending_order
+    end
+    ascending_return
   end
   
   private
@@ -115,6 +154,21 @@ class Node
     end
   end
   
+  def greater_height
+    if right_child.total_height >= left_child.total_height
+      right_child.total_height
+    else
+      left_child.total_height
+    end
+  end
   
+  def display_children
+    buffer = "        " * total_height
+    half_buff = "    " * (total_height)
+    quarter_buff = "  " * (total_height)
+    eighth_buff = " " * (total_height)
+    "#{half_buff}#{left_child.value if left_child}#{buffer}#{right_child.value if right_child}#{half_buff}\n"
+    "#{quarter_buff}#{left_child.left_child.value if left_child.left_child}#{half_buff}#{left_child.right_child.value if left_child.right_child}#{half_buff}#{right_child.left_child.value if right_child.left_child}#{half_buff}#{right_child.right_child.value if right_child.right_child}\n#{eighth_buff}#{left_child.left_child.left_child.value if left_child.left_child.left_child}#{quarter_buff}#{left_child.left_child.right_child.value if left_child.left_child.right_child}#{quarter_buff}#{left_child.right_child.left_child.value if left_child.right_child.left_child}#{quarter_buff}#{left_child.right_child.right_child.value if left_child.right_child.right_child}#{quarter_buff}#{right_child.left_child.left_child.value if right_child.left_child.left_child}#{quarter_buff}#{right_child.left_child.right_child.value if right_child.left_child.right_child}#{quarter_buff}#{right_child.right_child.left_child.value if right_child.right_child.left_child}#{quarter_buff} #{right_child.right_child.right_child.value if right_child.right_child.right_child}"
+  end
   
 end

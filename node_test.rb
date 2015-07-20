@@ -13,6 +13,10 @@ class NodeTest < Minitest::Test
     node.set_new_node(3)
   end
   
+  def teardown
+    @node = nil
+  end
+  
   def test_it_creates_node_with_value    
     expected = 6
     actual = node.value
@@ -71,6 +75,87 @@ class NodeTest < Minitest::Test
   def test_node_passes_height
     expected = 2
     actual = node.total_height
+    
+    assert_equal expected, actual
+  end
+  
+  def test_it_gets_child_node_values_based_on_height
+    expected = 
+"3
+12
+"
+    actual = node.find_by_height(2)
+    
+    assert_equal expected, actual
+  end
+  
+  def test_node_displays_self_and_below
+    # skip
+    node.set_new_node(17)
+    node.set_new_node(22)
+    node.set_new_node(7)
+    node.set_new_node(2)
+    node.set_new_node(4)
+    node.set_new_node(1)
+    node.set_new_node(5)
+    node.set_new_node(15)
+    node.set_new_node(9)
+    
+    expected =
+"                                6                                
+                      3                12                
+              2        4        7        17        
+          1              5         9    15    22    
+      "
+    actual = node.display_all
+    
+    assert_equal expected, actual
+  end
+  
+  def test_display_works_with_words
+    args = {:node_value => "middle"}
+    word_node = Node.new(args)
+    word_node.set_new_node("earlier")
+    word_node.set_new_node("before")
+    word_node.set_new_node("silly")
+    word_node.set_new_node("running")
+    
+    expected =
+    "                middle                
+              earlier        silly        
+          before         running         
+      "
+    actual = word_node.display_all
+    
+    assert_equal expected, actual
+  end
+  
+  def test_it_puts_node_values_in_asending_order
+    node.set_new_node(17)
+    node.set_new_node(22)
+    node.set_new_node(7)
+    node.set_new_node(2)
+    node.set_new_node(4)
+    node.set_new_node(1)
+    node.set_new_node(5)
+    node.set_new_node(15)
+    node.set_new_node(9)
+    
+    expected = 
+"1
+2
+3
+4
+5
+6
+7
+9
+12
+15
+17
+22
+"
+    actual = node.find_ascending_order
     
     assert_equal expected, actual
   end
